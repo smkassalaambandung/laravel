@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DataSiswaController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -29,3 +31,37 @@ Route::get('/nama-saya-adalah/{nama?}', function ($nama = 'Wajib Diisi') {
 Route::get('/luas-segitiga/{alas?}/{tinggi?}', function ($alas = 1, $tinggi = 1) {
     return 'Luas Segitiga : ' . ($alas * $tinggi) * 0.5;
 });
+
+// Route Group
+Route::get('jurusan/kelas/{namaKelas}', function ($namaKelas) {
+    return $namaKelas;
+});
+
+Route::group(['prefix'=>'jurusan'], function(){
+    Route::get('/', function () {
+        return 'berhasil';
+    });
+    Route::get('/kelas/{namaKelas}', function ($namaKelas) {
+        return $namaKelas;
+    });
+    Route::get('/wali-kelas/{nama}', function ($nama) {
+        return $nama;
+    });
+});
+
+Route::get('data-siswa', [DataSiswaController::class, 'datasiswa']);
+Route::get('data-siswi', [DataSiswaController::class, 'datasiswi']);
+Route::get('nama/{nama?}', [DataSiswaController::class, 'nama']);
+
+Route::resource('user', UserController::class);
+
+// https://bit.ly/laravel-pertemuan-3
+
+
+Route::get('profile', function () {
+    return view('profile.index');
+});
+
+// Route::get('profile/{nama}', function ($nama) {
+//     return view('profile.detail', ['nama_user' => $nama]);
+// });
