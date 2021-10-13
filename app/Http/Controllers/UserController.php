@@ -11,10 +11,14 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    //  Route::resource('user', UserController::class);
     public function index()
     {
-        // halaman utama
-        return 'halaman index user';
+        // url/user
+        $nama = 'Agung';
+        $namaBelakang = 'Wahyudi';
+        return view('user.index', compact('nama', 'namaBelakang'));
     }
 
     /**
@@ -25,7 +29,10 @@ class UserController extends Controller
     public function create()
     {
         // halaman menambah data
-        return 'halaman menambah user';
+        // url/user/create
+        $nama = 'Agung';
+        $namaBelakang = 'Wahyudi';
+        return view('user.create', compact('nama', 'namaBelakang'));
     }
 
     /**
@@ -37,6 +44,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // proses menambahkan data
+        // url/user
+        // post
     }
 
     /**
@@ -47,8 +56,11 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        // Route::get('user/{id}', [UserController::class, 'show'])
         // halaman menampilkan data by $id
-        return 'halaman menampilkan user ' .$id;
+        // url/user/{id}
+        $namaBelakang = 'Wahyudi';
+        return view('user.show', compact('id', 'namaBelakang'));
     }
 
     /**
@@ -60,7 +72,10 @@ class UserController extends Controller
     public function edit($id)
     {
         // halaman edit data by $id
-        return 'halaman edit user ' .$id;
+        // url/user/{id}/edit
+        $nama = 'Agung';
+        $namaBelakang = 'Wahyudi';
+        return view('user.edit', compact('nama', 'namaBelakang'));
     }
 
     /**
@@ -73,6 +88,8 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         // proses edit data by $id
+        // url/user/{id}
+        // put / patch
     }
 
     /**
@@ -84,5 +101,13 @@ class UserController extends Controller
     public function destroy($id)
     {
         // proses hapus data by $id
+        // url/user/{id}
+        // delete
+    }
+
+    public function tampildata($tampil)
+    {
+       $tampil = 'Ini Adalah Data';
+       return view('user.tampil', compact('tampil'));
     }
 }

@@ -1,1 +1,0 @@
-halo {{ $nama_user }}
