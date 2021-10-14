@@ -8,7 +8,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Halaman User</h1>
+                <h1>Halaman Daftar Buku</h1>
             </div>
         </div>
     </div><!-- /.container-fluid -->
@@ -31,7 +31,12 @@
             </div>
         </div>
         <div class="card-body">
-            Start creating your amazing application!
+            @foreach ($buku as $data)
+            Nama Buku : {{ $data->nama_buku }} <br>
+            Jumlah Halaman Buku : {{ $data->jumlah_halaman }} <br>
+            Translate Judul : {{ $data->traslate_judul_buku }} <br>
+            <hr>
+            @endforeach
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
