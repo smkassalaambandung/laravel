@@ -33,8 +33,12 @@
         <div class="card-body">
             @foreach ($buku as $data)
             Nama Buku : {{ $data->nama_buku }} <br>
+            @if($data->jumlah_halaman > 1)
             Jumlah Halaman Buku : {{ $data->jumlah_halaman }} <br>
-            Translate Judul : {{ $data->traslate_judul_buku }} <br>
+            @else
+            Jumlah Halaman Buku : <b>Belum mempunyai jumlah halaman</b> <br>
+            @endif
+            Translate Judul Buku : {!! $data->translate_judul_buku ?? '<i>Translate Buku Belum Tersedia</i>' !!} <br>
             <hr>
             @endforeach
         </div>

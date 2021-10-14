@@ -14,6 +14,6 @@ class Book extends Model
     protected $fillable = [
         'nama_buku',
         'jumlah_halaman',
-        'traslate_judul_buku'
+        'translate_judul_buku'
     ];
 }
