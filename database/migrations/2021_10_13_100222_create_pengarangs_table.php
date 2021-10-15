@@ -15,6 +15,9 @@ class CreatePengarangsTable extends Migration
     {
         Schema::create('pengarangs', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_pengarang');
+            $table->string('email')->nullable();
+            $table->string('tlp')->nullable();
             $table->timestamps();
         });
     }
