@@ -17,4 +17,9 @@ class Book extends Model
         'jumlah_halaman',
         'translate_judul_buku'
     ];
+
+    public function pengarang()
+    {
+        return $this->belongsTo(Pengarang::class, 'pengarang_id');
+    }
 }

@@ -13,4 +13,9 @@ class Pengarang extends Model
         'email',
         'tlp'
     ];
+
+    public function book()
+    {
+        return $this->hasMany(Book::class, 'pengarang_id');
+    }
 }
