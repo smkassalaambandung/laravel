@@ -14,7 +14,8 @@ class PengarangController extends Controller
      */
     public function index()
     {
-        //
+        $pengarang = Pengarang::all();
+        return view('pengarang.index', compact('pengarang'));
     }
 
     /**
@@ -24,7 +25,7 @@ class PengarangController extends Controller
      */
     public function create()
     {
-        //
+        return view('pengarang.create');
     }
 
     /**
@@ -35,7 +36,23 @@ class PengarangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required',
+            'email' => 'required|unique:pengarangs,email',
+            'tlp' => 'required|unique:pengarangs,tlp',
+        ]);
+
+        $notlp = $request->tlp;
+        if ($notlp[0] == 0) {
+            $notlp = 62;
+        }
+
+        $pengarang = new Pengarang();
+        $pengarang->nama_pengarang = 'Tuan ' . $request->nama;
+        $pengarang->email = $request->email;
+        $pengarang->tlp = $notlp . '' . $request->tlp;
+        $pengarang->save();
+        return redirect()->route('pengarang.index');
     }
 
     /**
@@ -44,9 +61,10 @@ class PengarangController extends Controller
      * @param  \App\Models\Pengarang  $pengarang
      * @return \Illuminate\Http\Response
      */
-    public function show(Pengarang $pengarang)
+    public function show($id)
     {
-        //
+        $pengarang = Pengarang::findOrFail($id);
+        return view('pengarang.show', compact('pengarang'));
     }
 
     /**
@@ -55,9 +73,10 @@ class PengarangController extends Controller
      * @param  \App\Models\Pengarang  $pengarang
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pengarang $pengarang)
+    public function edit($id)
     {
-        //
+        $pengarang = Pengarang::findOrFail($id);
+        return view('pengarang.edit', compact('pengarang'));
     }
 
     /**
@@ -67,9 +86,20 @@ class PengarangController extends Controller
      * @param  \App\Models\Pengarang  $pengarang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pengarang $pengarang)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama_pengarang' => 'required',
+            'email' => 'required|unique:pengarangs,email,' . $id,
+            'tlp' => 'required|unique:pengarangs,tlp,' . $id,
+        ]);
+
+        $pengarang = Pengarang::findOrFail($id);
+        $pengarang->nama_pengarang = $request->nama_pengarang;
+        $pengarang->email = $request->email;
+        $pengarang->tlp = $request->tlp;
+        $pengarang->save();
+        return redirect()->route('pengarang.index');
     }
 
     /**
@@ -78,8 +108,9 @@ class PengarangController extends Controller
      * @param  \App\Models\Pengarang  $pengarang
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pengarang $pengarang)
+    public function destroy($id)
     {
-        //
+        Pengarang::findOrFail($id)->delete();
+        return redirect()->route('pengarang.index');
     }
 }
